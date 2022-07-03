@@ -1,0 +1,19 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Integer[] map = new Integer[128];
+        int ans = 0;
+        int i = 0;
+        int j = 0;
+        while (j < s.length()){
+            char tmp1 = s.charAt(j);
+            if (map[tmp1] != null && map[tmp1] < j && map[tmp1] >= i){
+                i = map[tmp1] + 1;
+                
+            }
+            ans = Math.max(ans, j - i + 1);
+            map[tmp1] = j;
+            j++;
+        }
+        return ans;
+    }
+}

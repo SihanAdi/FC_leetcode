@@ -1,0 +1,18 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        map = [None] * 128
+        i = j = 0;
+        ans = 0;
+        while j < len(s):
+            c = s[j]
+            if (map[ord(c)] != None and map[ord(c)] < j  and map[ord(c)] >= i):
+                i = map[ord(c)] + 1
+            ans = max(ans, j - i + 1)
+            map[ord(c)] = j
+            j += 1
+            
+        return ans

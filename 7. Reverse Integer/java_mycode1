@@ -1,0 +1,26 @@
+class Solution {
+    public int reverse(int x) {
+        
+        String str = String.valueOf(x);
+        StringBuffer tmp = new StringBuffer();
+        if (str.charAt(0) == '-'){
+            tmp.append("-");
+        }
+        for (int i = str.length() - 1; i >= 0; i--){
+            if (i == 0){
+                if (str.charAt(i) == '-'){
+                    break;
+                }
+            }
+            tmp.append(str.charAt(i));
+        }
+        String ans = tmp.toString();
+        double tmpp = Double.valueOf(ans);
+        if (tmpp > Integer.MAX_VALUE || tmpp < Integer.MIN_VALUE){
+            return 0;
+        }else{
+            return (int)tmpp;
+        }
+        
+    }
+}

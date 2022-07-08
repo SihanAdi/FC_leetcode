@@ -1,0 +1,33 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        if (numRows >= s.length() || numRows == 1){
+            return s;
+        }
+        int zig = numRows - 2;
+        int row = numRows;
+        int num = zig + row;
+        StringBuffer ans = new StringBuffer();
+        for (int i = 0; i < row; i++){
+            int j = i;
+            int tmp = 0;
+            while (j < s.length()){
+                ans.append(s.charAt(j));
+                if (i == 0 || num - i * 2 == 0){
+                    j += num;
+                }else{
+                    if (tmp == 0){
+                        j += num - i * 2;
+                        tmp = num - (num - i * 2);
+                    }else{
+                        j += tmp;
+                        tmp = 0;
+                    }
+                    
+                    
+                }
+                
+            }
+        }
+        return ans.toString();
+    }
+}

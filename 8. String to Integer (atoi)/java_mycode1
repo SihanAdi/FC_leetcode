@@ -1,0 +1,47 @@
+class Solution {
+    public int myAtoi(String s) {
+        if (s.length() == 0){
+            return 0;
+        }
+        boolean front = true;
+        boolean z = true;
+        StringBuffer ans = new StringBuffer();
+        for (int i = 0; i < s.length(); i++){
+            if (front && s.charAt(i) == ' '){
+                continue;
+            }else if (front && (s.charAt(i) == '-' || s.charAt(i) == '+') && (i + 1 < s.length() && (57 >= s.charAt(i + 1) && s.charAt(i + 1) >= 48))){
+                ans.append(s.charAt(i));
+                front = false;
+            }else if (57 >= s.charAt(i) && s.charAt(i) >= 48){
+                front = false;
+                if (z && s.charAt(i) == 48){
+                    continue;
+                }else if (z && (57 >= s.charAt(i) && s.charAt(i) > 48)){
+                    ans.append(s.charAt(i));
+                    z = false;
+                }else if (57 >= s.charAt(i) && s.charAt(i) >= 48){
+                    ans.append(s.charAt(i));
+                }
+            }else{
+                
+                break;
+            }
+        }
+        if (ans.length() == 0){
+            return 0;
+        }
+        if ((ans.charAt(0) == '+' || ans.charAt(0) == '-') && ans.length() == 1){
+            return 0;
+        }
+        
+        double res = Double.valueOf(ans.toString());
+        if (res > Integer.MAX_VALUE){
+            return Integer.MAX_VALUE;
+        }else if (res < Integer.MIN_VALUE){
+            return Integer.MIN_VALUE;
+        }
+        else{
+            return (int) res;
+        }
+    }
+}

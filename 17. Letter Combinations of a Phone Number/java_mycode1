@@ -1,0 +1,29 @@
+class Solution {
+    private List<String> ans = new ArrayList<String>();
+    private Map<Character, String> map = Map.of(
+    '2', "abc", '3', "def", '4', "ghi", '5', "jkl", 
+    '6', "mno", '7', "pqrs", '8', "tuv", '9', "wxyz");
+    private String str;
+        
+    public List<String> letterCombinations(String s) {
+        if (s.length() == 0){
+            return ans;
+        }
+        str = s;
+        bc(0, new StringBuffer());
+        return ans;
+        
+    }
+    public void bc (int i, StringBuffer tmp){
+        if (tmp.length() == str.length()){
+            ans.add(tmp.toString());
+            return;
+        }
+        String s = map.get(str.charAt(i));
+        for (char c : s.toCharArray()){
+            tmp.append(c);
+            bc(i + 1, tmp);
+            tmp.delete(tmp.length() - 1, tmp.length());
+        }
+    }
+}

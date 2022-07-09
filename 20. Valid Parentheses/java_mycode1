@@ -1,0 +1,25 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack stack = new Stack();
+        HashMap<Character, Character> mappings = new HashMap<Character, Character>();
+        mappings.put(')', '(');
+        mappings.put('}', '{');
+        mappings.put(']', '[');
+        for (char c : s.toCharArray()){
+            if (c == '(' || c == '{' || c =='['){
+                stack.push(c);
+            }else{
+                if (stack.size() != 0 && stack.peek() == mappings.get(c)){
+                    stack.pop();
+                }else{
+                    return false;
+                }
+            }
+        }
+        if (stack.size() == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}

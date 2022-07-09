@@ -1,0 +1,123 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans = new LinkedList<List<Integer>>();
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < nums.length; i++){
+            if (map.containsKey(nums[i])){
+                map.replace(nums[i], map.get(nums[i]) + 1);
+            }else{
+                map.put(nums[i], 1);
+            }
+            
+        }
+        for (int i = 0; i < nums.length; i++){
+            for (int j = i + 1; j < nums.length; j++){
+                if (map.containsKey(0 - (nums[i] + nums[j]))){
+                    if (0 - (nums[i] + nums[j]) == nums[j] && nums[i] == nums[j]){
+                        if (map.get(nums[j]) > 2){
+                            LinkedList<Integer> tmp1 = new LinkedList<Integer>();
+                            tmp1.add(nums[i]);
+                            tmp1.add(nums[j]);
+                            tmp1.add(0 - (nums[i] + nums[j]));
+                            
+                            if (!ans.contains(tmp1)){
+                                ans.add(tmp1);
+                            }
+                        }
+                    }
+                    else if (0 - (nums[i] + nums[j]) == nums[i]){
+                        if (map.get(nums[i]) > 1){
+                            LinkedList<Integer> tmp1 = new LinkedList<Integer>();
+                            tmp1.add(nums[i]);
+                            tmp1.add(nums[j]);
+                            tmp1.add(0 - (nums[i] + nums[j]));
+                            
+                            LinkedList<Integer> tmp2 = new LinkedList<Integer>();
+                            tmp2.add(nums[i]);
+                            tmp2.add(0 - (nums[i] + nums[j]));
+                            tmp2.add(nums[j]);
+                            
+                            LinkedList<Integer> tmp3 = new LinkedList<Integer>();
+                            tmp3.add(nums[j]);
+                            tmp3.add(0 - (nums[i] + nums[j]));
+                            tmp3.add(nums[i]);
+
+                            
+                            if (!ans.contains(tmp1) && !ans.contains(tmp2) && !ans.contains(tmp3)){
+                                ans.add(tmp1);
+                            }
+                        }
+                    }
+                    else if (0 - (nums[i] + nums[j]) == nums[j]){
+                        if (map.get(nums[j]) > 1){
+                            LinkedList<Integer> tmp1 = new LinkedList<Integer>();
+                            tmp1.add(nums[i]);
+                            tmp1.add(nums[j]);
+                            tmp1.add(0 - (nums[i] + nums[j]));
+                            
+                            
+                            
+                            LinkedList<Integer> tmp2 = new LinkedList<Integer>();
+                            tmp2.add(0 - (nums[i] + nums[j]));
+                            tmp2.add(nums[i]);
+                            tmp2.add(nums[j]);
+                            
+                            LinkedList<Integer> tmp3 = new LinkedList<Integer>();
+                            tmp3.add(0 - (nums[i] + nums[j]));
+                            tmp3.add(nums[j]);
+                            tmp3.add(nums[i]);
+
+                           
+                            
+                            if (!ans.contains(tmp1) && !ans.contains(tmp2) && !ans.contains(tmp3)){
+                                ans.add(tmp1);
+                            }
+                        }
+                    }
+                    
+                    else{
+                        LinkedList<Integer> tmp1 = new LinkedList<Integer>();
+                            tmp1.add(nums[i]);
+                            tmp1.add(nums[j]);
+                            tmp1.add(0 - (nums[i] + nums[j]));
+                            
+                            LinkedList<Integer> tmp2 = new LinkedList<Integer>();
+                            tmp2.add(nums[i]);
+                            tmp2.add(0 - (nums[i] + nums[j]));
+                            tmp2.add(nums[j]);
+                            
+                            LinkedList<Integer> tmp3 = new LinkedList<Integer>();
+                            tmp3.add(0 - (nums[i] + nums[j]));
+                            tmp3.add(nums[i]);
+                            tmp3.add(nums[j]);
+                            
+                            LinkedList<Integer> tmp4 = new LinkedList<Integer>();
+                            tmp4.add(0 - (nums[i] + nums[j]));
+                            tmp4.add(nums[j]);
+                            tmp4.add(nums[i]);
+
+                            LinkedList<Integer> tmp5 = new LinkedList<Integer>();
+                            tmp5.add(nums[j]);
+                            tmp5.add(0 - (nums[i] + nums[j]));
+                            tmp5.add(nums[i]);
+
+                            LinkedList<Integer> tmp6 = new LinkedList<Integer>();
+                            tmp6.add(nums[j]);
+                            tmp6.add(nums[i]);
+                            tmp6.add(0 - (nums[i] + nums[j]));
+                            
+                            if (!ans.contains(tmp1) && !ans.contains(tmp2) && !ans.contains(tmp3) && !ans.contains(tmp4) && !ans.contains(tmp5) && !ans.contains(tmp6)){
+                                ans.add(tmp1);
+                            }
+                    }
+                }
+            }
+            if (map.get(nums[i]) - 1 == 0){
+                map.remove(nums[i]);
+            }else{
+                map.replace(nums[i], map.get(nums[i]) - 1);
+            }
+        }
+        return ans;
+    }
+}

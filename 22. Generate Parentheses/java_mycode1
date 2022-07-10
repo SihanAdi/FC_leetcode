@@ -1,0 +1,41 @@
+class Solution {
+    private List<String> ans = new ArrayList<String>();
+    private int tar;
+    private int l;
+    private int r;
+   
+    public List<String> generateParenthesis(int n) {
+        if (n == 1){
+            ans.add("()");
+            return ans;
+        }
+        tar = n;
+        l = 0;
+        r = 0;
+        bc (new StringBuffer(), 0);
+        return ans;
+    }
+    public void bc (StringBuffer s, int cur){
+        if (cur == tar * 2){
+            ans.add(s.toString());
+            return;
+        }
+        if (l < tar){
+            s.append('(');
+            l++;
+            bc (s, cur + 1);
+            s.deleteCharAt(s.length() - 1);
+            l--;
+        }
+        if (l > r){
+            s.append(')');
+            r++;
+            bc (s, cur + 1);
+            s.deleteCharAt(s.length() - 1);
+            r--;
+        }
+        
+        
+        
+    }
+}

@@ -1,0 +1,48 @@
+class Solution {
+    int ans = -1;
+    public int search(int[] nums, int target) {
+        bs(nums, target, 0, nums.length - 1);
+        return ans;
+    }
+    public void bs (int[] nums, int target, int l, int r){
+        if (ans != -1){
+            return;
+        }
+        if (r < 0 || l >= nums.length || l > r){
+            return;
+        }
+        if (l == r){
+            if (target == nums[l]){
+                ans = l;
+            }
+            return;
+        }
+        int mid = (l + r) / 2;
+        if (nums[mid] == target){
+            ans = mid;
+            return;
+        }
+        if (nums[l] > nums[mid]){
+            if (nums[mid] > target){
+                bs(nums, target, l, mid - 1);
+            }else{
+                bs(nums, target, l, mid - 1);
+                bs(nums, target, mid + 1, r);
+            }
+        }else if (nums[r] < nums[mid]){
+            if (nums[mid] > target){
+                bs(nums, target, l, mid - 1);
+                bs(nums, target, mid + 1, r);
+            }else{
+                bs(nums, target, mid + 1, r);
+            }
+        }else{
+            if (nums[mid] > target){
+                bs(nums, target, l, mid - 1);
+                
+            }else{
+                bs(nums, target, mid + 1, r);
+            }
+        }
+    }
+}

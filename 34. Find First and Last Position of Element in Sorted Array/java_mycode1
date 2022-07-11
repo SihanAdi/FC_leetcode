@@ -1,0 +1,57 @@
+class Solution {
+    int l = -1;
+    int r = -1;
+    public int[] searchRange(int[] nums, int target) {
+        if (nums.length == 0){
+            return new int[]{-1, -1};
+        }
+        if (nums.length == 1 && nums[0] == target){
+            return new int[]{0,0};
+        }else if (nums.length == 1 && nums[0] != target){
+            return new int[]{-1, -1};
+        }
+        bs (nums, target, 0, nums.length - 1);
+        return new int[]{l,r};
+    }
+    public void bs(int[] nums, int tar, int i, int j){
+        if (j < i){
+            return;
+        }
+        if (i == j){
+            if (nums[i] == tar){
+                if (i < l && i >= 0){
+                    l = i;
+                }else if (l == -1 && r == -1){
+                    l = i;
+                    r = i;
+                }else if(i > r && i < nums.length){
+                    r = i;
+                }
+            }
+            return;
+        }
+        int mid = i + (j - i) / 2;
+        if (nums[mid] == tar){
+            for (int k = mid; k >= 0; k--){
+                if (nums[k] == tar){
+                    l = k;
+                }else{
+                    break;
+                }
+            }
+            for (int k = mid; k < nums.length; k++){
+                if (nums[k] == tar){
+                    r = k;
+                }else{
+                    break;
+                }
+            }
+            return;
+        }
+        if (nums[mid] > tar){
+            bs (nums, tar, i, mid - 1);
+        }else{
+            bs (nums, tar, mid + 1, j);
+        }
+    }
+}

@@ -1,0 +1,33 @@
+class Solution {
+    public String countAndSay(int n) {
+        String s1 = "1";
+        return generate(s1, n, 1);
+        
+    }
+    public String generate(String s, int n, int sum){
+        if (sum == n){
+            return s;
+        }
+        StringBuffer tmp = new StringBuffer();
+        int count = 0;
+        char t = s.charAt(0);
+        int i = 0;
+        for (; i < s.length(); i++){
+            if (t == s.charAt(i)){
+                count++;
+            }else{
+                tmp.append((char)(count+'0'));
+                tmp.append(t);
+                count = 1;
+                t = s.charAt(i);
+            }
+        }
+       if (i == s.length()){
+            tmp.append((char)(count+'0'));
+            tmp.append(s.charAt(s.length()- 1));
+        }
+        String ss = tmp.toString();
+        String str = generate(tmp.toString(), n, sum + 1);
+        return str;
+    }
+}

@@ -1,0 +1,52 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        int[] check = new int[9];
+        
+        for (int i = 0; i < 9; i++){
+            Arrays.fill(check, 0);
+            for (int j = 0; j < 9; j++){
+                if (board[i][j] == '.'){
+                    continue;
+                }else{
+                    check[Character.getNumericValue(board[i][j]) - 1] += 1;
+                    if (check[Character.getNumericValue(board[i][j]) - 1] > 1){
+                       return false;
+                    }
+                }
+                
+            }
+        }
+        
+        for (int i = 0; i < 9; i++){
+            Arrays.fill(check, 0);
+            for (int j = 0; j < 9; j++){
+                if (board[j][i] == '.'){
+                    continue;
+                }else{
+                    check[Character.getNumericValue(board[j][i]) - 1] += 1;
+                    if (check[Character.getNumericValue(board[j][i]) - 1] > 1){
+                       return false;
+                    }
+                }
+            }
+        }
+        
+        int[][] box = new int[9][9];
+        for (int i = 0; i < 9; i++){
+            for (int j = 0; j < 9; j++){
+                if (board[i][j] == '.'){
+                    continue;
+                }else{
+                    int k = (i / 3) * 3 + (j / 3);
+                    box[k][Character.getNumericValue(board[i][j]) - 1] += 1;
+                    if (box[k][Character.getNumericValue(board[i][j]) - 1] > 1){
+                       return false;
+                    }
+                }
+                
+            }
+        }
+        
+        return true;
+    }
+}

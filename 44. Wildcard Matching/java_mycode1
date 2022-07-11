@@ -1,0 +1,48 @@
+class Solution {
+    public boolean isMatch(String s, String p) {
+        if (p.equals(s)){
+            return true;
+        }
+        
+        if (p.length() > 0){
+            boolean check = true;
+            for (int k = 0; k < p.length(); k++){
+                if (p.charAt(k) != '*'){
+                    check = false;
+                    break;
+                }
+            }
+            if (check){
+                return true;
+            }
+        }
+        if (p.length() == 0 || s.length() == 0){
+            return false;
+        }
+        
+        boolean[][] dp = new boolean[p.length() + 1][s.length() + 1];
+        dp[0][0] = true;
+        for (int i = 1; i < p.length() + 1; i++){
+            if (p.charAt(i - 1) == '*'){
+                int si = 1;
+                while ((!dp[i - 1][si - 1]) && si < s.length() + 1){
+                    si++;
+                }
+                dp[i][si - 1] = dp[i - 1][si - 1];
+                while (si < s.length() + 1){
+                    dp[i][si++] = true;
+                }
+            }else if (p.charAt(i - 1) == '?'){
+                for (int si = 1; si < s.length() + 1; si++){
+                    dp[i][si] = dp[i - 1][si - 1];
+                }
+            }else{
+                for (int si = 1; si < s.length() + 1; si++){
+                    dp[i][si] = (dp[i - 1][si - 1] && p.charAt(i - 1) == s.charAt(si - 1));
+                }
+            }
+            
+        }
+        return dp[p.length()][s.length()];
+    }
+}

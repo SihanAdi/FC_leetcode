@@ -1,0 +1,37 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        if (nums.length == 1){
+            return true;
+        }
+        int k = nums.length - 1;
+        
+        if (nums[0] == 0 && nums.length > 1){
+            return false;
+        }
+        boolean[] dp = new boolean[nums.length];
+        dp[nums.length - 1] = true;
+        
+        for (int i = nums.length - 2; i >= 0; i--){
+            if (nums[i] > 0){
+                if (dp[i + 1]){
+                    dp[i] = true;
+                    k = i;
+                }else{
+                    if ((nums[i] + i) >= k){
+                        dp[i] = true;
+                        k = i;
+                    }else{
+                        dp[i] = false;
+                    }
+                }
+            }else{
+                dp[i] = false;
+            }
+        }
+        if (dp[0]){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}

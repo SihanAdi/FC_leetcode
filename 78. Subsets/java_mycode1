@@ -1,0 +1,21 @@
+class Solution {
+    private List<List<Integer>> ans = new LinkedList<>();
+    public List<List<Integer>> subsets(int[] nums) {
+
+        for (int k = 0; k <= nums.length; k++){
+            bc (nums, new LinkedList<>(), k, 0);
+        }
+        return ans;
+    }
+    public void bc(int[] nums, LinkedList<Integer> tmp, int t, int i){
+        if (tmp.size() == t){
+            ans.add(tmp);
+            return;
+        }
+        for (int j = i; j < nums.length; j++){
+            LinkedList<Integer> tmpp = new LinkedList<>(tmp);
+            tmpp.add(nums[j]);
+            bc (nums, tmpp, t, j + 1);
+        }
+    }
+}

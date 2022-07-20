@@ -1,0 +1,58 @@
+class Solution {
+    public String minWindow(String s, String t) {
+        int n = t.length();
+        int m = s.length();
+        String ans = "";
+        if (m == 0 || n == 0){
+            return ans;
+        }
+        
+        int start = -1;
+        int end = -1;
+        int min = Integer.MAX_VALUE;
+        
+        
+        HashMap<Character, Integer> map = new HashMap<>();
+        HashMap<Character, Integer> set = new HashMap<>();
+        
+        int count = 0;
+        for (int i = 0; i < n; i++){
+            if (!map.containsKey(t.charAt(i))){
+                map.put(t.charAt(i), 1);
+            }else{
+                map.replace(t.charAt(i), map.get(t.charAt(i)) + 1);
+            }
+            
+        }
+        int r = 0;
+        int l = 0;
+        while (r < m){
+            if (set.containsKey(s.charAt(r))){
+                set.replace(s.charAt(r), set.get(s.charAt(r)) + 1);
+            }else{
+                set.put(s.charAt(r), 1);
+            }
+            if (map.containsKey(s.charAt(r)) && map.get(s.charAt(r)).intValue() == set.get(s.charAt(r)).intValue()){
+                count++;
+            }
+            while (l <= r && count == map.size()){
+                if (r - l + 1 < min){
+                    start = l;
+                    end = r;
+                    min = r - l + 1;
+                }
+                set.replace(s.charAt(l), set.get(s.charAt(l)) - 1);
+                if (map.containsKey(s.charAt(l)) && map.get(s.charAt(l)).intValue() > set.get(s.charAt(l)).intValue()){
+                    count--;
+                }
+                l++;
+            }
+            r++;
+            
+        }
+        if (start == -1){
+            return "";
+        }
+        return s.substring(start, end + 1);
+    }
+}

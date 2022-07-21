@@ -1,0 +1,32 @@
+class Solution {
+    List<List<Integer>> ans = new LinkedList<>();
+    public List<List<Integer>> generate(int numRows) {
+        if (numRows >= 1){
+            List<Integer> tmp = new LinkedList<>();
+            tmp.add(1);
+            ans.add(tmp);
+        }
+        if (numRows >= 2){
+            List<Integer> tmp = new LinkedList<>();
+            tmp.add(1);
+            tmp.add(1);
+            ans.add(tmp);
+        }
+        if (numRows == 1 || numRows == 2){
+            return ans;
+        }else{
+            for (int i = 2; i < numRows; i++){
+                List<Integer> tmp = new LinkedList<>();
+                tmp.add(1);
+                for (int k = 0, j = 1; k + 1 < ans.get(i - 1).size() && j <= i - 1; j++){
+                    tmp.add((ans.get(i - 1).get(k) + ans.get(i - 1).get(k + 1)));
+                    k++;
+                }
+                tmp.add(1);
+                ans.add(tmp);
+            }
+        }
+        return ans;
+    }
+    
+}

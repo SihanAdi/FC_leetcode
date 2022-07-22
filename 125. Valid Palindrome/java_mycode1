@@ -1,0 +1,31 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuffer tmp = new StringBuffer();
+        for (int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if ((c >= 65 && c <= 90) || (c >= 48 && c <= 57)){
+                tmp.append(c);
+                
+            }else if (c >= 97 && c <= 122){
+                int t = c;
+                char k = (char)(t - 32);
+                tmp.append(k);
+                
+            }else{
+                continue;
+            }
+        }
+        String str = tmp.toString();
+        if (str.length() == 0 || str.length() == 1){
+            return true;
+        }
+        for (int i = 0, j = str.length() - 1; i < j; i++, j--){
+            char c = str.charAt(i);
+            char k = str.charAt(j);
+            if (c != k){
+                return false;
+            }
+        }
+        return true;
+    }
+}

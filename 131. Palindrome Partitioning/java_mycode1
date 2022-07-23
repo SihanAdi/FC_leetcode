@@ -1,0 +1,35 @@
+class Solution {
+    List<List<String>> ans = new LinkedList<>();
+    public List<List<String>> partition(String s) {
+        if (s.length() == 1){
+            List<String> tmp = new LinkedList<>();
+            tmp.add(s);
+            ans.add(tmp);
+            return ans;
+        }
+        bc (s, 0, new LinkedList<>());
+        return ans;
+    }
+    public void bc(String s, int i, List<String> tmp){
+        
+        if (i >= s.length()){
+            ans.add(tmp);
+            return;
+        }
+        for (int k = i + 1; k <= s.length(); k++){
+            List<String> tmpp = new LinkedList<>(tmp);
+            if (check(s.substring(i, k))){
+                tmpp.add(s.substring(i, k));
+                bc (s, k, tmpp);
+            }
+        }
+    }
+    public boolean check(String str){
+        for (int i = 0, j = str.length() - 1; i <= j; i++, j--){
+            if (str.charAt(i) != str.charAt(j)){
+                return false;
+            }
+        }
+        return true;
+    }
+}

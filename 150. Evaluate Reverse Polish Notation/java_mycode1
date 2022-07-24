@@ -1,0 +1,31 @@
+class Solution {
+    public int evalRPN(String[] s) {
+        Stack<Integer> stack = new Stack<>();
+        
+        for (String str : s){
+            if (!"+-*/".contains(str)){
+                stack.push(Integer.parseInt(str));
+                continue;
+            }
+            int r = stack.pop();
+            int l = stack.pop();
+            int ans = 0;
+            switch (str) {
+                case "+":
+                    ans = l + r;
+                    break;
+                case "-":
+                    ans = l - r;
+                    break;
+                case "*":
+                    ans = l * r;
+                    break;
+                case "/":
+                    ans = l / r;
+                    break;
+            }
+            stack.push(ans);
+        }
+        return stack.pop();
+    }
+}

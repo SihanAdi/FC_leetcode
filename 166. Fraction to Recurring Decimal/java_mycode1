@@ -1,0 +1,32 @@
+class Solution {
+    public String fractionToDecimal(int numerator, int denominator) {
+        if (numerator == 0){
+            return "0";
+        }
+        StringBuffer ans = new StringBuffer();
+        if ((numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0)){
+            ans.append("-");
+        }
+        long l = Math.abs((long)numerator);
+        long r = Math.abs((long)denominator);
+        ans.append(String.valueOf(l / r)) ;
+        long remain = l % r;
+        if (remain == 0){
+            return ans.toString();
+        }
+        ans.append(".");
+        HashMap<Long, Integer> map = new HashMap<>();
+        while (remain != 0){
+            if (map.containsKey(remain)){
+                ans.insert(map.get(remain), "(");
+                ans.append(")");
+                break;
+            }
+            map.put(remain, ans.length());
+            remain *= 10;
+            ans.append(String.valueOf(remain / r)) ;
+            remain %= r;
+        }
+        return ans.toString();
+    }
+}

@@ -1,0 +1,21 @@
+class Solution {
+    LinkedList<Integer> cir = new LinkedList<>();
+    public boolean isHappy(int n) {
+        if (n == 1){
+            return true;
+        }
+        if (cir.contains(n)){
+            return false;
+        }else{
+            cir.add(n);
+        }
+        String s = String.valueOf(n);
+        int sum = 0;
+        for (char c : s.toCharArray()){
+            int num = Character.getNumericValue(c);
+            sum += Math.pow(num, 2);
+        }
+        return isHappy(sum);
+        
+    }
+}

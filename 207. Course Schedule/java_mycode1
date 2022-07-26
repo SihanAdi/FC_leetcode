@@ -1,0 +1,47 @@
+class Solution {
+    boolean[] check;
+    HashMap<Integer, List<Integer>> map = new HashMap<>();
+    boolean[] visit;
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        check = new boolean[numCourses];
+        visit = new boolean[numCourses];
+        for (int[] arr : prerequisites){
+            if (map.containsKey(arr[1])){
+                map.get(arr[1]).add(arr[0]);
+            }else{
+                List<Integer> tmp = new LinkedList<>();
+                tmp.add(arr[0]);
+                map.put(arr[1], tmp);
+            }
+        }
+        for (int i = 0; i < numCourses; i++){
+            if (cyc(i)){
+                return false;
+            }
+        }
+        return true;
+
+    }
+    public boolean cyc(int i){
+        if (visit[i]){
+            return false;
+        }
+        if (check[i]){
+            return true;
+        }
+        if (!map.containsKey(i)){
+            return false;
+        }
+        check[i] = true;
+        boolean res = false;
+        for (Integer k : map.get(i)){
+            res = cyc(k);
+            if (res){
+                break;
+            }
+        }
+        check[i] = false;
+        visit[i] = true;
+        return res;
+    }
+}

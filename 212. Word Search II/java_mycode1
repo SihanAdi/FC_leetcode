@@ -1,0 +1,44 @@
+class Solution {
+    private List<String> ans = new LinkedList<>();
+    private HashSet<String> set = new HashSet<>();
+    private int[][] visited;
+    int l = 0;
+    public List<String> findWords(char[][] board, String[] words) {
+        for (String str : words){
+            l = Math.max(l, str.length());
+            set.add(str);
+        }
+        visited = new int[board.length][board[0].length];
+        
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[0].length; j++){
+                bc(board, words, i, j, new StringBuffer());
+            }
+        }
+        return ans;
+    }
+    public void bc(char[][] board, String[] words, int i, int j, StringBuffer s){
+        if (set.contains(s.toString()) && !ans.contains(s.toString())){
+            ans.add(s.toString());
+            
+        }
+        if (i >= board.length || j >= board[0].length || i < 0 || j < 0){
+            return;
+        }
+        if (visited[i][j] == 1){
+            return;
+        }
+        
+        if (s.length() == l){
+            return;
+        }
+        s.append(board[i][j]);
+        visited[i][j] = 1;
+        bc(board, words, i + 1, j, s);
+        bc(board, words, i - 1, j, s);
+        bc(board, words, i, j - 1, s);
+        bc(board, words, i, j + 1, s);
+        s.delete(s.length() - 1, s.length());
+        visited[i][j] = 0;
+    }
+}

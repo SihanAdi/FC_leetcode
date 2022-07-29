@@ -1,0 +1,41 @@
+class Solution {
+    
+    public int findKthLargest(int[] nums, int k) {
+        return qs(0, nums.length - 1, nums.length - k, nums);
+    }
+    public int qs(int i, int j, int index, int[] nums){
+        if (i == j){
+            return nums[i];
+        }
+        int mid = sort(i, j, nums);
+        if (mid == index){
+            return nums[index];
+        }else if (index < mid){
+            // if (mid - 1 >= 0)
+                return qs(i, mid - 1, index, nums);
+        }
+            // if (mid + 1 < nums.length)
+        return qs(mid + 1, j, index, nums);
+        
+        // return -1;
+    }
+    public int sort(int i, int j, int[] nums){
+        int index = i;
+        int start = j;
+        int tmp = nums[j];
+        nums[j] = nums[i];
+        nums[i] = tmp;
+        for (int k = i; k <= j; k++){
+            if (nums[k] < nums[start]){
+                int tmpp = nums[k];
+                nums[k] = nums[index];
+                nums[index] = tmpp;
+                index++;
+            }
+        }
+        tmp = nums[index];
+        nums[index] = nums[j];
+        nums[j] = tmp;
+        return index;
+    }
+}

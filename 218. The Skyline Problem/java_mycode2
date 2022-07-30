@@ -1,0 +1,86 @@
+class Solution {
+    public List<List<Integer>> getSkyline(int[][] buildings) {
+        List<List<Integer>> ans = new LinkedList<>();
+        int height1 = 0;
+        int left1 = 0;
+        int right1 = 0;
+        boolean check = false;
+        int max = 0;
+        for (int i = 0; i < buildings.length; i++){
+            // int left2 = buildings[i][0];
+            int right2 = buildings[i][1];
+            // int height2 = buildings[i][2];
+            max = Math.max(max, right2);
+        }
+        int[] arr;
+        if (max == Integer.MAX_VALUE){
+            arr = new int[max];
+        }else{
+            arr = new int[max + 1];
+        }
+        
+        for (int i = 0; i < buildings.length; i++){
+            int left2 = buildings[i][0];
+            int right2 = buildings[i][1];
+            int height2 = buildings[i][2];
+            for (int j = left2; j <= right2; j++){
+                if (arr[j] != 0){
+                    arr[j] = Math.max(arr[j], height2);
+                }else{
+                    arr[j] = height2;
+                }
+            }
+        }
+        int height = 0;
+        for (int i = 0; i < arr.length; i++){
+            if (arr[i] == 0 && !check){
+                continue;
+            }else if (arr[i] != height){
+                List<Integer> list = new LinkedList<>();
+                if (arr[i] < height){
+                    list.add(i - 1);
+                }else{
+                    list.add(i);
+                }
+                list.add(arr[i]);
+                height = arr[i];
+                check = true;
+                ans.add(list);
+            }
+        }
+        List<Integer> list = new LinkedList<>();
+        if (max == Integer.MAX_VALUE){
+            list.add(max);
+        }else{
+            list.add(arr.length - 1);
+        }
+        
+        list.add(0);
+        ans.add(list);
+        return ans;
+    }
+}
+
+
+
+
+
+// int max2 = buildings[i][0];
+            // for (int h : buildings[i]){
+            //     max2 = Math.max(max2, h);
+            // }
+            // if (max2 == 0 && check){
+            //     List<Integer> list = new LinkedList<>();
+            //     list.add(i - 1);
+            //     list.add(0);
+            //     max1 = max2;
+            //     ans.add(list);
+            // }
+            // if (max1 != max2){
+            //     List<Integer> list = new LinkedList<>();
+            //     list.add(i);
+            //     list.add(max2);
+            //     max1 = max2;
+            //     ans.add(list);
+            //     check = true;
+            // }

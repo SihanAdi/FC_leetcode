@@ -1,0 +1,63 @@
+class Solution {
+    public String alienOrder(String[] words) {
+        // LinkedList<Character> list = new LinkedList<>();
+        HashMap<Character, List<Character>> map = new HashMap<>();
+        HashMap<Character, Integer> indegree = new HashMap<>();
+        Queue<Character> q = new LinkedList<>();
+        for (String s : words){
+            for (char c : s.toCharArray()){
+                map.put(c, new LinkedList<>());
+                indegree.put(c, 0);
+            }
+        }
+        for (int i = 0; i + 1< words.length; i++){
+            int l = 0;
+            int r = 0;
+            String s1 = words[i];
+            String s2 = words[i + 1];
+            while (l < s1.length() && r < s2.length()){
+                if (s1.charAt(l) != s2.charAt(r)){
+                    map.get(s1.charAt(l)).add(s2.charAt(r));
+                    indegree.put(s2.charAt(r), indegree.get(s2.charAt(r)) + 1);
+                    break;
+//                     if (list.contains(s1.charAt(l)) && !list.contains(s2.charAt(r))){
+//                         int k = list.indexOf(s2.charAt(r));
+                        
+//                     }else if (!list.contains(s1.charAt(l)) && list.contains(s2.charAt(r))){
+                        
+//                     }else if (!list.contains(s1.charAt(l)) && !list.contains(s2.charAt(r))){
+                        
+//                     }
+                }
+                
+                l++;
+                r++;
+            }
+            if (r == s2.length() && l != s1.length()){
+                return "";
+            }
+            
+        }
+        
+        StringBuffer str = new StringBuffer();
+        for (Character c : indegree.keySet()){
+            if (indegree.get(c) == 0){
+                q.add(c);
+            }
+        }
+        while (!q.isEmpty()){
+            char c = q.remove();
+            str.append(c);
+            for (Character tmp : map.get(c)){
+                indegree.put(tmp, indegree.get(tmp) - 1);
+                if (indegree.get(tmp) == 0){
+                    q.add(tmp);
+                }
+            }
+        }
+        if (str.length() < indegree.size()){
+            return "";
+        }
+        return str.toString();
+    }
+}

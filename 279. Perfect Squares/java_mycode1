@@ -1,0 +1,32 @@
+class Solution {
+    public int numSquares(int n) {
+        int mid = (int)Math.sqrt(n);
+//         int[] dp = new int[mid + 1];
+//         dp[0] = 0;
+//         HashSet<Integer> set = new HashSet<>();
+//         for (int i = 1; i < dp.length; i++){
+//             if (n % (int)Math.pow(i, 2) == 0){
+//                 dp[i] = n / (int)Math.pow(i, 2);
+//                 set.add((int)Math.pow(i, 2));
+//             }else{
+//                 int r = n / (int)Math.pow(i, 2);
+//                 if (set.contains(n - r))
+//             }
+//         }
+        
+        
+        int ans = Integer.MAX_VALUE;
+        
+        for (int i = mid; i >= 1; i--){
+            if (n % (int)Math.pow(i, 2) == 0){
+                ans = Math.min(ans, n / (int)Math.pow(i, 2));
+            }else if (n > Math.pow(i, 2) && n - (int)Math.pow(i, 2) >= 1){
+                ans = Math.min(ans, numSquares(n % (int)Math.pow(i, 2)) + (n / (int)Math.pow(i, 2)));
+                
+                
+            }
+        }
+        
+        return ans;
+    }
+}

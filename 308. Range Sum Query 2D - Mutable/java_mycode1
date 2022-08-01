@@ -1,0 +1,53 @@
+class NumMatrix {
+    int[][] arr;
+    HashMap<String, Integer> map1;
+    HashMap<String, String> map2;
+    public NumMatrix(int[][] matrix) {
+        arr = matrix;
+        map1 = new HashMap<>();
+        map2 = new HashMap<>();
+    }
+    
+    public void update(int row, int col, int val) {
+        StringBuffer tmp = new StringBuffer();
+        tmp.append(String.valueOf(row));
+        tmp.append(String.valueOf(col));
+        if (map2.containsKey(tmp.toString())){
+            int sum = map1.get(map2.get(tmp.toString())) + val - arr[row][col];
+            map1.put(map2.get(tmp.toString()), sum);
+        }
+        arr[row][col] = val;
+    }
+    
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        StringBuffer tmp = new StringBuffer();
+        tmp.append(String.valueOf(row1));
+        tmp.append(String.valueOf(col1));
+        tmp.append(String.valueOf(row2));
+        tmp.append(String.valueOf(col2));
+        String s = tmp.toString();
+        if (map1.containsKey(s)){
+            return map1.get(s);
+        }else{
+            int sum = 0;
+            for (int i = row1; i <= row2; i++){
+                for (int j = col1; j <= col2; j++){
+                    StringBuffer tmpp = new StringBuffer();
+                    tmpp.append(String.valueOf(i));
+                    tmpp.append(String.valueOf(j));
+                    map2.put(tmpp.toString(), s);
+                    sum += arr[i][j];
+                }
+            }
+            map1.put(s, sum);
+            return sum;
+        }
+    }
+}
+
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * NumMatrix obj = new NumMatrix(matrix);
+ * obj.update(row,col,val);
+ * int param_2 = obj.sumRegion(row1,col1,row2,col2);
+ */

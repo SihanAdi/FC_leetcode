@@ -1,0 +1,84 @@
+class Solution {
+    int m;
+    int n;
+    HashMap<String, Integer> map;
+    int max = Integer.MIN_VALUE;
+    public int longestIncreasingPath(int[][] matrix) {
+        /**
+            iterate over each node
+            node:
+                four direction
+                check relationship
+                visited
+                String like "2l","2r"
+                HashMap<S,List> to memery
+        **/
+        m = matrix.length;
+        n = matrix[0].length;
+        if (m == n && m == 1){
+            return 1;
+        }
+        map = new HashMap<>();
+        int[][] visited = new int[m][n];
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++){
+                bc(matrix, i, j, matrix[i][j], true, new LinkedList<>());
+            }
+        }
+        return max;
+    }
+    public int bc(int[][] arr, int i, int j, int tar, boolean first, LinkedList<Integer> tmp){
+        if (!first){
+            if (arr[i][j] <= tar){
+                max = Math.max(tmp.size() - 1, max);
+                return tmp.size() - 1;
+            }else{
+                tar = arr[i][j];
+                if (i - 1 >=0){
+                    tmp.add(arr[i - 1][j]);
+                    bc(arr, i - 1, j, tar, false, tmp);
+                    
+                    tmp.removeLast();
+                }
+                if (i + 1 < m){
+                    tmp.add(arr[i + 1][j]);
+                    bc(arr, i + 1, j, tar, false, tmp);
+                    tmp.removeLast();
+                }
+                if (j - 1 >=0){
+                    tmp.add(arr[i][j - 1]);
+                    bc(arr, i, j - 1, tar, false, tmp);
+                    tmp.removeLast();
+                }
+                if (j + 1 < n){
+                    tmp.add(arr[i][j + 1]);
+                    bc(arr, i, j + 1, tar, false, tmp);
+                    tmp.removeLast();
+                }
+            }
+        }else{
+            tmp.add(arr[i][j]);
+            
+            if (i - 1 >= 0){
+                tmp.add(arr[i - 1][j]);
+                bc(arr, i - 1, j, tar, false, tmp);
+                tmp.removeLast();
+            }
+            if (i + 1 < m){
+                tmp.add(arr[i + 1][j]);
+                bc(arr, i + 1, j, tar, false, tmp);
+                tmp.removeLast();
+            }
+            if (j - 1 >= 0){
+                tmp.add(arr[i][j - 1]);
+                bc(arr, i, j - 1, tar, false, tmp);
+                tmp.removeLast();
+            }
+            if (j + 1 < n){
+                tmp.add(arr[i][j + 1]);
+                bc(arr, i, j + 1, tar, false, tmp);
+                tmp.removeLast();
+            }
+        }
+    }
+}

@@ -1,0 +1,73 @@
+class TicTacToe {
+    int[][] board;
+    int n;
+    public TicTacToe(int n) {
+        board = new int[n][n];
+        this.n = n;
+    }
+    
+    public int move(int row, int col, int player) {
+        board[row][col] = player;
+        if (check(row, col, player)){
+            return player;
+        }else{
+            return 0;
+        }
+    }
+    
+    public boolean check(int row, int col, int player){
+        boolean ans = true;
+        for (int j = 0; j < n; j++){
+            if (board[row][j] != player){
+                ans = false;
+            }
+        }
+        if (ans){
+            return true;
+        }
+        ans = true;
+        for (int j = 0; j < n; j++){
+            if (board[j][col] != player){
+                ans = false;
+            }
+        }
+        if (ans){
+            return true;
+        }
+        
+        int i = 0;
+        int j = 0;
+        if (row == col){
+            ans = true;
+            while (i < n){
+                if (board[i][i] != player){
+                    ans = false;
+                }
+                i++;
+            }
+        }
+        if ((row + col) == (n - 1)){
+            ans = true;
+            i = 0;
+            j = n - 1;
+            while (i < n && j >= 0){
+                if (board[i][j] != player){
+                    ans = false;
+                }
+                i++;
+                j--;
+            }
+        }
+        if (ans){
+            return true;
+        }
+        
+        return false;
+    }
+}
+
+/**
+ * Your TicTacToe object will be instantiated and called as such:
+ * TicTacToe obj = new TicTacToe(n);
+ * int param_1 = obj.move(row,col,player);
+ */

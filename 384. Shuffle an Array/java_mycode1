@@ -1,0 +1,41 @@
+class Solution {
+    int[] org;
+    int[] num;
+    Random rand;
+    public Solution(int[] nums) {
+        org = new int[nums.length];
+        int k = 0;
+        for (int i : nums){
+            org[k++] = i;
+        }
+        num = nums;
+        rand = new Random();
+    }
+    
+    public int[] reset() {
+        int k = 0;
+        for (int i : org){
+            num[k++] = i;
+        }
+        return num;
+    }
+    
+    public int[] shuffle() {
+        for (int i = 0; i < num.length; i++){
+            int k = rand.nextInt(num.length - i) + i;
+            int tmp = num[i];
+            num[i] = num[k];
+            num[k] = tmp;
+        }
+        
+        
+        return num;
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(nums);
+ * int[] param_1 = obj.reset();
+ * int[] param_2 = obj.shuffle();
+ */

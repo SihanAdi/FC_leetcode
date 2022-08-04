@@ -1,0 +1,37 @@
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        PriorityQueue<int[]> heap = new PriorityQueue<int[]>((a, b) -> (a[2] - b[2]));
+        int count = 0;
+        int ans = matrix[0][0];
+        int[] tmppp = new int[3];
+        tmppp[0] = 0;
+        tmppp[1] = 0;
+        tmppp[2] = matrix[0][0];
+        heap.offer(tmppp);
+        while (count < k){
+            int i = heap.peek()[0];
+            int j = heap.peek()[1];
+            count++;
+            ans = heap.poll()[2];
+            if (i + 1 < matrix.length && matrix[i + 1][j] != Integer.MIN_VALUE){
+                int[] tmp = new int[3];
+                tmp[0] = i + 1;
+                tmp[1] = j;
+                tmp[2] = matrix[i + 1][j];
+                matrix[i + 1][j] = Integer.MIN_VALUE;
+                heap.offer(tmp);
+            }
+            if (j + 1 < matrix.length && matrix[i][j + 1]  != Integer.MIN_VALUE){
+                int[] tmpp = new int[3];
+                tmpp[0] = i;
+                tmpp[1] = j + 1;
+                tmpp[2] = matrix[i][j + 1];
+                matrix[i][j + 1] = Integer.MIN_VALUE;
+                heap.offer(tmpp);
+            }
+            
+            
+        }
+        return ans;
+    }
+}

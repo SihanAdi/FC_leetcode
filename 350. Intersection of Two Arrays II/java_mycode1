@@ -1,0 +1,21 @@
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        LinkedList<Integer> set = new LinkedList<>();
+        LinkedList<Integer> tmp = new LinkedList<>();
+        for (int i : nums1){
+            set.add(i);
+        }
+        for (int j = 0; j < nums2.length; j++){
+            if (set.indexOf(nums2[j]) != -1){
+                set.remove(set.indexOf(nums2[j]));
+                tmp.add(nums2[j]);
+            }
+        }
+        int[] ans = new int[tmp.size()];
+        int k = 0;
+        for (Integer i : tmp){
+            ans[k++] = i;
+        }
+        return ans;
+    }
+}

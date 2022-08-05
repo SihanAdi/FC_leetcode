@@ -1,0 +1,28 @@
+class Solution {
+    public List<String> fizzBuzz(int n) {
+        // List<String> ans = new LinkedList<>();
+        String[] ans = new String[n];
+        for (int i = 0; i < n; i++){
+            if ((i + 1) % 3 == 0 && (i + 1) % 5 == 0){
+                ans[i] = "FizzBuzz";
+            }else if ((i + 1) % 3 == 0){
+                ans[i] = "Fizz";
+            }else if ((i + 1) % 5 == 0){
+                ans[i] = "Buzz";
+            }else{
+                ans[i] = String.valueOf((i + 1));
+            }
+        }
+        return Arrays.asList(ans);
+        // if (n >= 3){
+        //     int i = 2;
+        //     while (i < n){
+        //         ans[i] = "Fizz";
+        //         i += 3;
+        //     }
+        // }
+        // if (n >= 5){
+        //     int j = 
+        // }
+    }
+}
